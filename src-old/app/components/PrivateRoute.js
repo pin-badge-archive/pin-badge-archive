@@ -2,7 +2,7 @@ import { inject, observer } from "mobx-react";
 import React from "react";
 import { Redirect, Route, RouteProps } from "react-router-dom";
 
-import AuthStore from "../models/AuthStore";
+import AuthStore from "../AuthStore";
 
 class PrivateRoute extends React.Component {
   render() {

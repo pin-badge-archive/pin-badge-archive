@@ -3,12 +3,12 @@ import { createBrowserHistory } from "history";
 import { useStrict } from "mobx";
 import { Provider } from "mobx-react";
 import { RouterStore, syncHistoryWithStore } from "mobx-react-router";
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import { Router } from "react-router";
 
 import config from "./config";
-import AuthStore from "./models/AuthStore";
+import AuthStore from "./AuthStore";
 import Routes from "./Routes";
 
 useStrict(true);

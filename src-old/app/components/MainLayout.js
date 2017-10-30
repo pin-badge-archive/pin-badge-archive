@@ -5,10 +5,11 @@ import AppBar from "./AppBar";
 export default class MainLayout extends React.Component {
   render() {
     return (
-      <MainWrapper>
+      <div>
+        blah
         <AppBar />
         {this.props.children}
-      </MainWrapper>
+      </div>
     );
   }
 }

@@ -1,7 +1,6 @@
 import { inject, observer } from "mobx-react";
 import { RouterStore } from "mobx-react-router";
 import * as React from "react";
-import * as shortid from "shortid";
 
 import { DropdownMenu, DropdownMenuItem } from "components/Dropdown";
 import Icon from "components/Icon";

@@ -1,13 +1,21 @@
 import { auth as Firebase, User } from "firebase/app";
-import mobx, { action, computed, observable, runInAction } from "mobx";
+import { action, computed, extendObservable, runInAction } from "mobx";
 
 export default class AuthStore {
-  user;
-  idToken;
-  auth;
-  provider;
-
   constructor(auth, provider) {
+    extendObservable(this, {
+      user: User,
+      idToken: '',
+      auth: Firebase.Auth,
+      provider: Firebase.AuthProvier,
+      isLoggedIn: computed(this.isLoggedIn),
+      displayName: computed(this.displayName),
+      email: computed(this.email),
+      token: computed(this.token),
+      login: action.bound(this.login),
+      logout: action.bound(this.logout),
+      updateUser: action.bound(this.updateUser),
+    });
     this.auth = auth;
     this.provider = provider;
     this.auth.onIdTokenChanged(this.updateUser);
@@ -26,7 +34,7 @@ export default class AuthStore {
   }
 
   get token() {
-    return this.idToken;
+    return `Bearer ${this.idToken}`;
   }
 
   login() {
