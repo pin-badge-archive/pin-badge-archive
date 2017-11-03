@@ -1,50 +1,47 @@
 import { auth as Firebase, User } from "firebase/app";
-import { action, computed, extendObservable, runInAction } from "mobx";
+import mobx, { action, computed, observable, runInAction } from "mobx";
 
 export default class AuthStore {
+  @observable user;
+  @observable idToken;
+
   constructor(auth, provider) {
-    extendObservable(this, {
-      user: User,
-      idToken: '',
-      auth: Firebase.Auth,
-      provider: Firebase.AuthProvier,
-      isLoggedIn: computed(this.isLoggedIn),
-      displayName: computed(this.displayName),
-      email: computed(this.email),
-      token: computed(this.token),
-      login: action.bound(this.login),
-      logout: action.bound(this.logout),
-      updateUser: action.bound(this.updateUser),
-    });
     this.auth = auth;
     this.provider = provider;
     this.auth.onIdTokenChanged(this.updateUser);
   }
 
+  @computed
   get isLoggedIn() {
     return !!this.user;
   }
 
+  @computed
   get displayName() {
     return this.isLoggedIn ? this.user.displayName : undefined;
   }
 
+  @computed
   get email() {
     return this.isLoggedIn ? this.user.email : undefined;
   }
 
+  @computed
   get token() {
     return `Bearer ${this.idToken}`;
   }
 
+  @action.bound
   login() {
     this.auth.signInWithPopup(this.provider);
   }
 
+  @action.bound
   logout() {
     this.auth.signOut().then(() => this.updateUser(undefined));
   }
 
+  @action.bound
   updateUser(user) {
     this.user = user;
     if (!!user) {

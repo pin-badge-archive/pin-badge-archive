@@ -1,9 +1,9 @@
 import { inject, observer } from "mobx-react";
 import React from "react";
-import { Redirect, Route, RouteProps } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
-import AuthStore from "../AuthStore";
-
+@inject('authStore')
+@observer
 class PrivateRoute extends React.Component {
   render() {
     const { authStore, component: Component, ...rest } = this.props;
@@ -11,7 +11,7 @@ class PrivateRoute extends React.Component {
       if (authStore.isLoggedIn) {
         return <Component {...props} />;
       }
-      return <Redirect to={`/signin?redirect=${props.location.pathname}`} />;
+      return <Redirect to={`/login?redirect=${props.location.pathname}`} />;
     };
 
     return <Route {...rest} render={render} />;

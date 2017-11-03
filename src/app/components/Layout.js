@@ -1,15 +1,15 @@
 import  React from "react";
+import { Container } from 'semantic-ui-react';
 
 import AppBar from "./AppBar";
 
-export default class MainLayout extends React.Component {
+export default class Layout extends React.Component {
   render() {
     return (
-      <div>
-        blah
+      <Container>
         <AppBar />
         {this.props.children}
-      </div>
+      </Container>
     );
   }
 }
