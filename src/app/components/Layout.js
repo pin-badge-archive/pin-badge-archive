@@ -6,10 +6,12 @@ import AppBar from "./AppBar";
 export default class Layout extends React.Component {
   render() {
     return (
-      <Container>
+      <div>
         <AppBar />
-        {this.props.children}
-      </Container>
+        <Container>
+          {this.props.children}
+        </Container>
+      </div>
     );
   }
 }
