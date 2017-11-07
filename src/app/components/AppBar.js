@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Menu, Visibility, Input, Image,
+  Container, Menu, Visibility, Input, Image, Dropdown,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { inject, observer, Provider } from "mobx-react";
@@ -44,6 +44,7 @@ export default class AppBar extends Component {
       overlayFixed: false,
       activeItem: pathname ? pathname.replace('/', '') : 'surveys',
     }
+    console.log(this.props);
   }
 
   handleOverlayRef = (c) => {
@@ -60,11 +61,15 @@ export default class AppBar extends Component {
   unStickTopMenu = () => this.setState({ menuFixed: false })
 
   handleItemClick = (e, { name }) => {
+    this.setState({
+      activeItem: name,
+    });
     this.props.routerStore.push(name);
   }
 
   render() {
     const { menuFixed, activeItem } = this.state;
+    console.log(activeItem);
     return (
       <Visibility
         onBottomPassed={this.stickTopMenu}
@@ -91,11 +96,15 @@ export default class AppBar extends Component {
               </Menu.Item>
               {
                 this.props.authStore.isLoggedIn ?
-                [
-                  <Menu.Item as='a' name="my" active={activeItem === 'my'} onClick={this.handleItemClick} />,
-                  <Menu.Item as='a' name="logout" onClick={this.props.authStore.logout} />
-                ]
-                : <Menu.Item as='a' name="login" active={activeItem === 'login'} onClick={this.handleItemClick} />
+                  <Dropdown item text={this.props.authStore.displayName}>
+                    <Dropdown.Menu>
+                      <Dropdown.Item text="Account" icon="user" onClick={() => this.props.routerStore.push('account')} />
+                      <Dropdown.Item text="Settings" icon="settings" onClick={() => this.props.routerStore.push('settings')} />
+                      <Dropdown.Divider />
+                      <Dropdown.Item text="Log Out" icon="sign out" onClick={this.props.authStore.logout} />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  : <Menu.Item as='a' name="login" active={activeItem === 'login'} onClick={this.handleItemClick} />
               }
             </Menu.Menu>
           </Container>

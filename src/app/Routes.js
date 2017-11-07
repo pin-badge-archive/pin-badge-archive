@@ -12,11 +12,13 @@ export default class Routes extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/" component={Landing} />
+        <Route exact path="/" component={Landing} />
         <Route path="/login" component={Login} />
         <PrivateRoute path="/surveys" component={SurveyRoutes} />
         <PrivateRoute path="/sales" component={SurveyRoutes} />
         <PrivateRoute path="/archives" component={SurveyRoutes} />
+        <PrivateRoute path="/account" component={SurveyRoutes} />
+        <PrivateRoute path="/settings" component={SurveyRoutes} />
         <Route component={NotFound} />
       </Switch>
     );
