@@ -2,6 +2,9 @@ import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { RouterStore } from "mobx-react-router";
 import { Routes as SurveyRoutes } from "../contexts/survey";
+import { Routes as SalesRoutes } from "../contexts/sales";
+import { Routes as ArchiveRoutes } from "../contexts/archive";
+import { Routes as AccountRoutes } from "../contexts/account";
 
 import NotFound from "./components/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
@@ -15,10 +18,9 @@ export default class Routes extends React.Component {
         <Route exact path="/" component={Landing} />
         <Route path="/login" component={Login} />
         <PrivateRoute path="/surveys" component={SurveyRoutes} />
-        <PrivateRoute path="/sales" component={SurveyRoutes} />
-        <PrivateRoute path="/archives" component={SurveyRoutes} />
-        <PrivateRoute path="/account" component={SurveyRoutes} />
-        <PrivateRoute path="/settings" component={SurveyRoutes} />
+        <PrivateRoute path="/sales" component={SalesRoutes} />
+        <PrivateRoute path="/archives" component={ArchiveRoutes} />
+        <PrivateRoute path="/account" component={AccountRoutes} />
         <Route component={NotFound} />
       </Switch>
     );
