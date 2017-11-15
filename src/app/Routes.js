@@ -17,9 +17,9 @@ export default class Routes extends React.Component {
       <Switch>
         <Route exact path="/" component={Landing} />
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/surveys" component={SurveyRoutes} />
-        <PrivateRoute path="/sales" component={SalesRoutes} />
-        <PrivateRoute path="/archives" component={ArchiveRoutes} />
+        <Route path="/surveys" component={SurveyRoutes} />
+        <Route path="/sales" component={SalesRoutes} />
+        <Route path="/archives" component={ArchiveRoutes} />
         <PrivateRoute path="/account" component={AccountRoutes} />
         <Route component={NotFound} />
       </Switch>

@@ -10,7 +10,7 @@ class SurveyDetail extends React.Component {
     return (
       <Layout>
         <div>
-          Blah
+          SurveyDetail {this.props.match.params.id}
         </div>
       </Layout>
     );

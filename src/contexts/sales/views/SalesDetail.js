@@ -10,7 +10,7 @@ class SalesDetail extends React.Component {
     return (
       <Layout>
         <div>
-          Blah
+          SalesDetail {this.props.match.params.id}
         </div>
       </Layout>
     );

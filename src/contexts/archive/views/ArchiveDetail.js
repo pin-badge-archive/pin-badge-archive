@@ -10,7 +10,7 @@ class ArchiveDetail extends React.Component {
     return (
       <Layout>
         <div>
-          Blah
+          ArchiveDetail {this.props.match.params.id}
         </div>
       </Layout>
     );

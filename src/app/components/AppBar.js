@@ -42,9 +42,9 @@ export default class AppBar extends Component {
     this.state = {
       menuFixed: false,
       overlayFixed: false,
-      activeItem: pathname ? pathname.replace('/', '') : 'surveys',
+      activeItem: pathname ? pathname.split('/')[1] : 'surveys',
     }
-    console.log(this.props);
+    console.log(this.props, pathname.split('/'));
   }
 
   handleOverlayRef = (c) => {
@@ -64,7 +64,7 @@ export default class AppBar extends Component {
     this.setState({
       activeItem: name,
     });
-    this.props.routerStore.push(name);
+    this.props.routerStore.push(`/${name}`);
   }
 
   render() {

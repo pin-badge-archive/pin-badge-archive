@@ -24,24 +24,8 @@ export default class Routes extends React.Component {
     return (
       <Provider {...stores}>
         <Switch>
-          <Route
-            path={`${matchedUrl}/individuals`}
-            render={() => (
-              <SalesList
-                trail={[
-                  {
-                    name: "관제 관리",
-                    url: matchedUrl
-                  },
-                  {
-                    name: "관제 현황",
-                    url: `${matchedUrl}/individuals`
-                  }
-                ]}
-              />
-            )}
-          />
-          <Route path={`${matchedUrl}/individuals/:id`} component={SalesDetail} />
+          <Route exact path={matchedUrl} component={SalesList} />
+          <Route path={`${matchedUrl}/:id`} component={SalesDetail} />
           <Route component={NotFound} />
         </Switch>
       </Provider>
