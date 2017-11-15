@@ -61,10 +61,14 @@ export default class AppBar extends Component {
   unStickTopMenu = () => this.setState({ menuFixed: false })
 
   handleItemClick = (e, { name }) => {
-    this.setState({
-      activeItem: name,
-    });
-    this.props.routerStore.push(`/${name}`);
+    if (name === 'home') {
+      this.props.routerStore.push('/');
+    } else {
+      this.setState({
+        activeItem: name,
+      });
+      this.props.routerStore.push(`/${name}`);
+    }
   }
 
   render() {
@@ -86,7 +90,7 @@ export default class AppBar extends Component {
           fluid
         >
           <Container text>
-            <Menu.Item header>B ARCHIVE</Menu.Item>
+            <Menu.Item as="a" name="home" header onClick={this.handleItemClick}>B ARCHIVE</Menu.Item>
             <Menu.Item as="a" name="surveys" active={activeItem === 'surveys'} onClick={this.handleItemClick} />
             <Menu.Item as="a" name="sales" active={activeItem === 'sales'} onClick={this.handleItemClick} />
             <Menu.Item as="a" name="archives" active={activeItem === 'archives'} onClick={this.handleItemClick} />
