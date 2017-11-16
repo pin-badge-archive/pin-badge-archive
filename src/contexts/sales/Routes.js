@@ -2,7 +2,7 @@ import { inject, observer, Provider } from "mobx-react";
 import React from "react";
 import { match, Route, Switch } from "react-router-dom";
 
-import { NotFound } from "../../app";
+import { NotFound } from "app";
 
 import SalesStore from "./SalesStore";
 import SalesService from "./services/SalesService";

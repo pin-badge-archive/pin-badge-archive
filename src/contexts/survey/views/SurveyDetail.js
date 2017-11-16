@@ -1,7 +1,7 @@
 import { inject, observer } from "mobx-react";
 import React from "react";
 
-import { Layout } from '../../../app';
+import { Layout } from 'app';
 
 @inject('authStore')
 @observer

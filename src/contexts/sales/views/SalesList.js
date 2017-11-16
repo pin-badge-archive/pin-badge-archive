@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { List } from "semantic-ui-react";
 import React from "react";
 
-import { Layout } from '../../../app';
+import { Layout } from 'app';
 
 @inject('authStore')
 @observer
