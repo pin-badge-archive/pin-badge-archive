@@ -44,7 +44,6 @@ export default class AppBar extends Component {
       overlayFixed: false,
       activeItem: pathname ? pathname.split('/')[1] : 'surveys',
     }
-    console.log(this.props, pathname.split('/'));
   }
 
   handleOverlayRef = (c) => {
@@ -73,7 +72,6 @@ export default class AppBar extends Component {
 
   render() {
     const { menuFixed, activeItem } = this.state;
-    console.log(activeItem);
     return (
       <Visibility
         onBottomPassed={this.stickTopMenu}

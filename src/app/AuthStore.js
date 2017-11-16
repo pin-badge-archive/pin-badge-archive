@@ -1,13 +1,15 @@
 import { auth as Firebase, User } from "firebase/app";
+import firebase from "firebase";
 import mobx, { action, computed, observable, runInAction } from "mobx";
+import { error } from "util";
 
 export default class AuthStore {
   @observable user;
   @observable idToken;
+  @observable provider;
 
   constructor(auth, provider) {
     this.auth = auth;
-    this.provider = provider;
     this.auth.onIdTokenChanged(this.updateUser);
   }
 
@@ -18,7 +20,7 @@ export default class AuthStore {
 
   @computed
   get displayName() {
-    return this.isLoggedIn ? this.user.displayName : undefined;
+    return this.isLoggedIn ? (this.user.displayName || this.user.email) : undefined;
   }
 
   @computed
@@ -29,6 +31,38 @@ export default class AuthStore {
   @computed
   get token() {
     return `Bearer ${this.idToken}`;
+  }
+
+  @action.bound
+  emailSignUp({ email, password }) {
+    this.auth.createUserWithEmailAndPassword(email, password)
+      .catch(error => {
+        const { code, message } = error;
+        console.error(error);
+        alert(`[${code}] ${message}`);
+      });
+  }
+
+  @action.bound
+  emailLogin({ email, password }) {
+    this.auth.signInWithEmailAndPassword(email, password)
+      .catch(error => {
+        const { code, message } = error;
+        console.error(error);
+        alert(`[${code}] ${message}`);
+      });
+  }
+
+  @action.bound
+  googleLogin() {
+    this.provider = new firebase.auth.GoogleAuthProvider();
+    this.login();
+  }
+
+  @action.bound
+  twitterLogin() {
+    this.provider = new firebase.auth.TwitterAuthProvider();
+    this.login();
   }
 
   @action.bound
