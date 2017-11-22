@@ -6,25 +6,30 @@ import Store from "lib/models/Store";
 
 import SurveyFilter from "./commands/SurveyFilter";
 import Survey from "./models/Survey";
-import SurveyService, { SurveySearchResult } from "./services/SurveyService";
+import SurveyService from "./services/SurveyService";
 
-export default class SurveyStore {
+export default class SurveyStore extends Store {
   @observable filter = new SurveyFilter({
-    category: '',
-    keyword: '',
+    // category: '',
+    // keyword: '',
   });
-
+    
   @observable pageSize = 20;
   @observable searchResult = {
     page: 1,
     total: 0,
     totalPages: 1,
     count: {},
+    filter: new SurveyFilter(),
   };
 
+  @observable selectedId;
+
+  service;
+
   constructor() {
-    // super();
-    this.service = SurveyService;
+    super();
+    this.service = new SurveyService();
   }
 
   @computed
@@ -37,54 +42,61 @@ export default class SurveyStore {
     return this.searchResult.totalPages;
   }
 
-  // @computed
-  // public get surveys() {
-  //   return map(this.searchResult.ids, x => this.entities[x]);
-  // }
+  @computed
+  get surveys() {
+    return map(this.searchResult.ids, x => this.entities[x]);
+  }
 
-  // @computed
-  // public get surveyCount() {
-  //   return this.searchResult.count;
-  // }
+  @computed
+  get survey() {
+    return this.selectedId ? this.entities[this.selectedId] : undefined;
+  }
 
-  // @action.bound
-  // public search() {
-  //   this.surveyService.findSurveys(this.filter, 1, this.pageSize).then(res =>
-  //     runInAction(() => {
-  //       this.searchResult = res.result;
-  //       this.update(res.sources);
-  //     })
-  //   );
-  // }
+  @computed
+  get surveyCount() {
+    return this.searchResult.count;
+  }
+
+  @action.bound
+  search() {
+    return this.service.getSurveys(this.filter, 1, this.pageSize)
+      // .then(res =>
+      //   runInAction(() => {
+      //     console.log(res);
+      //     this.searchResult = res.result;
+      //     this.update(res.sources);
+      //   })
+      // );
+  }
 
   @action.bound
   changePage(page) {
-    // this.surveyService
-    //   .findSurveys(this.searchResult.filter, page, this.pageSize)
-    //   .then(res =>
-    //     runInAction(() => {
-    //       this.searchResult = res.result;
-    //       this.update(res.sources);
-    //     })
-    //   );
+    return this.service.getSurveys(this.filter, page, this.pageSize)
+      .then(res =>
+        runInAction(() => {
+          console.log(res);
+          this.searchResult = res.result;
+          this.update(res.sources);
+        })
+      );
   }
 
-  // @action.bound
-  // public load(id: number) {
-  //   this.surveyService.getSurvey(id).then(res => {
-  //     runInAction(() => {
-  //       this.update([res]);
-  //     });
-  //   });
-  // }
+  @action.bound
+  load(id) {
+    this.service.getSurvey(id).then(res => {
+      runInAction(() => {
+        this.update([res]);
+      });
+    });
+  }
 
-  // protected update(sources: SurveyDto[]) {
-  //   forEach(sources, x => {
-  //     if (typeof this.entities[x.id] === "undefined") {
-  //       this.entities[x.id] = new Survey(x.id, x);
-  //     } else {
-  //       this.entities[x.id].update(x);
-  //     }
-  //   });
-  // }
+  update(sources) {
+    forEach(sources, x => {
+      if (typeof this.entities[x.id] === "undefined") {
+        this.entities[x.id] = new Survey(x.id, x);
+      } else {
+        this.entities[x.id].update(x);
+      }
+    });
+  }
 }

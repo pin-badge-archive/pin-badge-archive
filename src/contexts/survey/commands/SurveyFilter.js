@@ -7,9 +7,9 @@ export const SearchField = {
 
 export default class OrderFilter extends Form {
   @field("카테고리")
-  @required()
-  timePeriod;
+  // @required()
+  category;
 
   @field("검색어")
-  keywords;
+  keyword;
 }

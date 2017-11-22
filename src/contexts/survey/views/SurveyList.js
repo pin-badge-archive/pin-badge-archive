@@ -8,15 +8,16 @@ import { SidebarLayout, Pagination, Item } from 'components';
 @inject('surveyStore')
 @observer
 class SurveyList extends React.Component {
+  componentDidMount() {
+    this.props.surveyStore.search();
+  }
   render() {
-    const { match: { url } } = this.props;
+    const { surveyStore, match: { url } } = this.props;
 
     const items = [];
     for (let i = 0; i < 20; i++) {
       items.push(<Item key={i} {...this.props} id={i} />);
     }
-
-    console.log(this.props.surveyStore);
 
     return (
       <Layout>

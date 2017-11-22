@@ -22,14 +22,10 @@ export default class Survey {
     switch (this.source.status) {
       case 'AWAITING':
         return SurveyStatus.Awaiting;
-      case 'SUBMITTED':
-        return SurveyStatus.Submitted;
       case 'ASSIGNED':
         return SurveyStatus.Assigned;
-      case 'PICKEDUP':
-        return SurveyStatus.PickedUp;
-      case 'DELIVERED':
-        return SurveyStatus.Delivered;
+      case 'COMPLETED':
+        return SurveyStatus.Completed;
       case 'CANCELED':
         return SurveyStatus.Cancelled;
       default:
@@ -39,6 +35,62 @@ export default class Survey {
 
   @computed
   get startAt() {
-    return moment(this.startAt).format('YYYY-MM-DD');
+    return moment(this.source.startAt).format('YYYY-MM-DD');
   }
+
+  @computed
+  get endAt() {
+    return moment(this.source.endAt).format('YYYY-MM-DD');
+  }
+
+  @computed
+  get createdAt() {
+    return moment(this.source.createdAt).format('YYYY-MM-DD');
+  }
+
+  @computed
+  get itemId() {
+    return this.source.itemId;
+  }
+
+  @computed
+  get itemName() {
+    return this.source.itemName;
+  }
+
+  @computed
+  get itemImages() {
+    return this.source.itemImages || [];
+  }
+
+  @computed
+  get itemPrice() {
+    return this.source.itemPrice.toLocaleString() || '-';
+  }
+
+  @computed
+  get itemSpec() {
+    return this.source.itemSpec || '-';
+  }
+
+  @computed
+  get itemThumbnail() {
+    return this.source.itemThumbnail;
+  }
+
+  @computed
+  get options() {
+    return this.source.options || [];
+  }
+
+  @computed
+  get sellerId() {
+    return this.source.sellerId;
+  }
+
+  @computed
+  get sellerName() {
+    return this.source.sellerName;
+  }
+
 }
