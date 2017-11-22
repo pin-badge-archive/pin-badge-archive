@@ -14,16 +14,19 @@ class SurveyList extends React.Component {
   render() {
     const { surveyStore, match: { url } } = this.props;
 
-    const items = [];
-    for (let i = 0; i < 20; i++) {
-      items.push(<Item key={i} {...this.props} id={i} />);
-    }
-
     return (
       <Layout>
         <SidebarLayout>
-          <Card.Group itemsPerRow={5}>
-            {items}
+          <Card.Group itemsPerRow={5} stackable doubling>
+            {
+              surveyStore.surveys.map((item, index) => (
+                <Item
+                  {...this.props} 
+                  key={item.id}
+                  id={item.id}
+                />
+              ))
+            }
           </Card.Group>
           <Pagination />
         </SidebarLayout>

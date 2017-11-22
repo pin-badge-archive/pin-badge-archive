@@ -1,6 +1,8 @@
 import { computed } from "mobx";
 import moment from "moment";
 
+import Entity from "lib/models/Entity";
+
 export const SurveyStatus = {
   Awaiting: "대기",
   Assigned: "진행",
@@ -15,67 +17,67 @@ export const AllSurveyStatuses = [
   SurveyStatus.Cancelled,
 ];
 
-export default class Survey {
+export default class Survey extends Entity {
 
-  @computed
-  get status() {
-    switch (this.source.status) {
-      case 'AWAITING':
-        return SurveyStatus.Awaiting;
-      case 'ASSIGNED':
-        return SurveyStatus.Assigned;
-      case 'COMPLETED':
-        return SurveyStatus.Completed;
-      case 'CANCELED':
-        return SurveyStatus.Cancelled;
-      default:
-        return null;
-    }
-  }
+  // @computed
+  // get status() {
+  //   switch (this.source.status) {
+  //     case 'AWAITING':
+  //       return SurveyStatus.Awaiting;
+  //     case 'ASSIGNED':
+  //       return SurveyStatus.Assigned;
+  //     case 'COMPLETED':
+  //       return SurveyStatus.Completed;
+  //     case 'CANCELED':
+  //       return SurveyStatus.Cancelled;
+  //     default:
+  //       return null;
+  //   }
+  // }
 
   @computed
   get startAt() {
-    return moment(this.source.startAt).format('YYYY-MM-DD');
+    return moment(this.source.start_at).format('YYYY-MM-DD');
   }
 
   @computed
   get endAt() {
-    return moment(this.source.endAt).format('YYYY-MM-DD');
+    return moment(this.source.end_at).format('YYYY-MM-DD');
   }
 
   @computed
   get createdAt() {
-    return moment(this.source.createdAt).format('YYYY-MM-DD');
+    return moment(this.source.created_at).format('YYYY-MM-DD');
   }
 
   @computed
   get itemId() {
-    return this.source.itemId;
+    return this.source.item_id;
   }
 
   @computed
   get itemName() {
-    return this.source.itemName;
+    return this.source.item_name;
   }
 
   @computed
   get itemImages() {
-    return this.source.itemImages || [];
+    return this.source.item_images || [];
   }
 
   @computed
   get itemPrice() {
-    return this.source.itemPrice.toLocaleString() || '-';
+    return this.source.item_price.toLocaleString() || '-';
   }
 
   @computed
   get itemSpec() {
-    return this.source.itemSpec || '-';
+    return this.source.item_spec || '-';
   }
 
   @computed
   get itemThumbnail() {
-    return this.source.itemThumbnail;
+    return this.source.item_thumbnail;
   }
 
   @computed
@@ -85,12 +87,12 @@ export default class Survey {
 
   @computed
   get sellerId() {
-    return this.source.sellerId;
+    return this.source.seller_id;
   }
 
   @computed
   get sellerName() {
-    return this.source.sellerName;
+    return this.source.seller_name;
   }
 
 }

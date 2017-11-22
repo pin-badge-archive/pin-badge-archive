@@ -60,13 +60,12 @@ export default class SurveyStore extends Store {
   @action.bound
   search() {
     return this.service.getSurveys(this.filter, 1, this.pageSize)
-      // .then(res =>
-      //   runInAction(() => {
-      //     console.log(res);
-      //     this.searchResult = res.result;
-      //     this.update(res.sources);
-      //   })
-      // );
+      .then(res =>
+        runInAction(() => {
+          this.searchResult = res.result;
+          this.update(res.sources);
+        })
+      );
   }
 
   @action.bound
@@ -74,7 +73,6 @@ export default class SurveyStore extends Store {
     return this.service.getSurveys(this.filter, page, this.pageSize)
       .then(res =>
         runInAction(() => {
-          console.log(res);
           this.searchResult = res.result;
           this.update(res.sources);
         })
@@ -90,6 +88,7 @@ export default class SurveyStore extends Store {
     });
   }
 
+  @action.bound
   update(sources) {
     forEach(sources, x => {
       if (typeof this.entities[x.id] === "undefined") {
