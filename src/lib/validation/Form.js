@@ -57,7 +57,7 @@ export default class Form {
     }
   }
 
-  validateField() {
+  validateField(key) {
     const promises = [];
     if (this.rules && this.rules[key]) {
       const rules = this.rules[key];
@@ -76,12 +76,12 @@ export default class Form {
   }
 
   @action.bound
-  updateError() {
+  updateError(key, error) {
     this.errors[key] = error;
   }
 
   @action.bound
-  touch() {
+  touch(key) {
     this.touched[key] = true;
   }
 }

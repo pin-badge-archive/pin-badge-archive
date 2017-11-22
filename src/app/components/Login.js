@@ -1,17 +1,10 @@
-import { Location } from "history";
 import { inject, observer } from "mobx-react";
-import { RouterStore } from "mobx-react-router";
 import React from "react";
 import { Redirect, Link } from "react-router-dom";
-import { Card, Button, Form, Grid, Header, Image, Message, Segment, Divider, Icon } from 'semantic-ui-react'
+import { Card, Button, Form, Grid, Header, Message, Divider, Icon } from 'semantic-ui-react'
 import { email, password } from "../commands";
 
 import Layout from './Layout';
-
-const loginStyle = {
-  paddingTop: 60,
-  height: '100%',
-};
 
 @inject('authStore')
 @observer

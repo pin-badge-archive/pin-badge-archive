@@ -18,9 +18,12 @@ export { default as Layout } from "./components/Layout";
 
 useStrict(true);
 
-initializeFirebase(config.firebase);
-const provider = new auth.GoogleAuthProvider();
-const authStore = new AuthStore(auth(), provider);
+export const FirebaseApp = initializeFirebase(config.firebase);
+export const FirebaseAuth = FirebaseApp.auth();
+export const FirebaseDb = FirebaseApp.database();
+export const FirebaseStorage = FirebaseApp.storage();
+
+const authStore = new AuthStore(auth());
 
 const routerStore = new RouterStore();
 const browserHistory = createBrowserHistory();

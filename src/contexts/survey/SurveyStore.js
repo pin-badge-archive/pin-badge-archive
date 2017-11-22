@@ -2,62 +2,54 @@ import { forEach, map } from "lodash";
 import mobx, { action, computed, observable, runInAction } from "mobx";
 import moment from "moment";
 
-// import Store from "lib/models/Store";
+import Store from "lib/models/Store";
 
-// import SurveyFilter, { TimePeriod } from "./commands/SurveyFilter";
+import SurveyFilter from "./commands/SurveyFilter";
 import Survey from "./models/Survey";
 import SurveyService, { SurveySearchResult } from "./services/SurveyService";
 
 export default class SurveyStore {
-  // @observable
-  // public filter: SurveyFilter = new SurveyFilter({
-  //   timePeriod: TimePeriod.Day,
-  //   targetDay: moment().format("YYYY-MM-DD"),
-  //   statuses: AllSurveyStatuses
-  // });
+  @observable filter = new SurveyFilter({
+    category: '',
+    keyword: '',
+  });
 
-  // @observable public pageSize: number = 50;
+  @observable pageSize = 20;
+  @observable searchResult = {
+    page: 1,
+    total: 0,
+    totalPages: 1,
+    count: {},
+  };
 
-  // @observable
-  // private searchResult: SurveySearchResult = {
-  //   page: 1,
-  //   ids: [],
-  //   total: 0,
-  //   totalPages: 1,
-  //   count: {},
-  //   filter: new SurveyFilter()
-  // };
+  constructor() {
+    // super();
+    this.service = SurveyService;
+  }
 
-  // private orderService: SurveyService;
+  @computed
+  get page() {
+    return this.searchResult.page;
+  }
 
-  // constructor(orderService: SurveyService) {
-  //   super();
-  //   this.orderService = orderService;
-  // }
-
-  // @computed
-  // public get page() {
-  //   return this.searchResult.page;
-  // }
+  @computed
+  get totalPages() {
+    return this.searchResult.totalPages;
+  }
 
   // @computed
-  // public get totalPages() {
-  //   return this.searchResult.totalPages;
-  // }
-
-  // @computed
-  // public get orders() {
+  // public get surveys() {
   //   return map(this.searchResult.ids, x => this.entities[x]);
   // }
 
   // @computed
-  // public get orderCount() {
+  // public get surveyCount() {
   //   return this.searchResult.count;
   // }
 
   // @action.bound
   // public search() {
-  //   this.orderService.findSurveys(this.filter, 1, this.pageSize).then(res =>
+  //   this.surveyService.findSurveys(this.filter, 1, this.pageSize).then(res =>
   //     runInAction(() => {
   //       this.searchResult = res.result;
   //       this.update(res.sources);
@@ -65,21 +57,21 @@ export default class SurveyStore {
   //   );
   // }
 
-  // @action.bound
-  // public changePage(page: number) {
-  //   this.orderService
-  //     .findSurveys(this.searchResult.filter, page, this.pageSize)
-  //     .then(res =>
-  //       runInAction(() => {
-  //         this.searchResult = res.result;
-  //         this.update(res.sources);
-  //       })
-  //     );
-  // }
+  @action.bound
+  changePage(page) {
+    // this.surveyService
+    //   .findSurveys(this.searchResult.filter, page, this.pageSize)
+    //   .then(res =>
+    //     runInAction(() => {
+    //       this.searchResult = res.result;
+    //       this.update(res.sources);
+    //     })
+    //   );
+  }
 
   // @action.bound
   // public load(id: number) {
-  //   this.orderService.getSurvey(id).then(res => {
+  //   this.surveyService.getSurvey(id).then(res => {
   //     runInAction(() => {
   //       this.update([res]);
   //     });

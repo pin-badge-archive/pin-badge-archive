@@ -1,14 +1,12 @@
-import { auth as Firebase, User } from "firebase/app";
 import firebase from "firebase";
-import mobx, { action, computed, observable, runInAction } from "mobx";
-import { error } from "util";
+import { action, computed, observable, runInAction } from "mobx";
 
 export default class AuthStore {
   @observable user;
   @observable idToken;
   @observable provider;
 
-  constructor(auth, provider) {
+  constructor(auth) {
     this.auth = auth;
     this.auth.onIdTokenChanged(this.updateUser);
   }

@@ -1,8 +1,8 @@
 import { observable } from "mobx";
 import Entity from "./Entity";
 
-abstract class Store extends Entity {
-  @observable protected entities = {};
+class Store extends Entity {
+  @observable entities = {};
 }
 
 export default Store;

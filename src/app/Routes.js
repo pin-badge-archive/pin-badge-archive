@@ -1,6 +1,5 @@
 import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import { RouterStore } from "mobx-react-router";
+import { Route, Switch } from "react-router-dom";
 import { Routes as SurveyRoutes } from "../contexts/survey";
 import { Routes as SalesRoutes } from "../contexts/sales";
 import { Routes as ArchiveRoutes } from "../contexts/archive";

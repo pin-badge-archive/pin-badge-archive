@@ -1,11 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import {
-  Container, Menu, Visibility, Input, Image, Dropdown,
+  Container, Menu, Visibility, Input, Dropdown,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import { inject, observer, Provider } from "mobx-react";
+import { inject, observer } from "mobx-react";
 
 const menuStyle = {
   border: 'none',
@@ -19,18 +17,6 @@ const fixedMenuStyle = {
   backgroundColor: '#fff',
   border: '1px solid #ddd',
   boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
-}
-
-const overlayStyle = {
-  float: 'left',
-  margin: '0em 3em 1em 0em',
-}
-
-const fixedOverlayStyle = {
-  ...overlayStyle,
-  position: 'fixed',
-  top: '80px',
-  zIndex: 10,
 }
 
 @inject('authStore', 'routerStore')

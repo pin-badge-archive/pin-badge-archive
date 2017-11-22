@@ -8,7 +8,9 @@
 // } from "@meshkorea/mesh-one-api";
 import { map } from "lodash";
 
-// import SurveyFilter from "../commands/SurveyFilter";
+import { FirebaseDb } from "app";
+
+import SurveyFilter from "../commands/SurveyFilter";
 import Survey, { SurveyCount, SurveyStatus, PaymentTime, Volume } from "../models/Survey";
 
 export default class SurveyService {
@@ -45,9 +47,11 @@ export default class SurveyService {
   }
 
   getSurvey(id) {
-    // return this.liveControllerApi
-    //   .getSurveyDetailUsingPOST(id)
-    //   .then(res => res.order);
+    return FirebaseDb.ref(`surveys/${id}`)
+      .once('value')
+      .then(snapshot => {
+        console.log(snapshot);
+      });
   }
 }
 
