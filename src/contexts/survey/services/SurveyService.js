@@ -10,7 +10,6 @@ class SurveyService {
       .limitToLast(pageSize)
       .once('value')
       .then(snapshot => {
-        
         return {
           result: {
             page,
@@ -26,7 +25,11 @@ class SurveyService {
     return this.api.child(id)
       .once('value')
       .then(snapshot => {
-        console.log(snapshot);
+        if (snapshot.exists()) {
+          return {
+            ...snapshot.val(),
+          };
+        }
       });
   }
 }

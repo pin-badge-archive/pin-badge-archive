@@ -83,6 +83,7 @@ export default class SurveyStore extends Store {
   load(id) {
     this.service.getSurvey(id).then(res => {
       runInAction(() => {
+        this.selectedId = id;
         this.update([res]);
       });
     });

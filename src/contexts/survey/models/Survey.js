@@ -61,8 +61,18 @@ export default class Survey extends Entity {
   }
 
   @computed
+  get itemDescription() {
+    return this.source.item_description;
+  }
+
+  @computed
   get itemImages() {
     return this.source.item_images || [];
+  }
+
+  @computed
+  get itemLike() {
+    return this.source.item_like;
   }
 
   @computed
